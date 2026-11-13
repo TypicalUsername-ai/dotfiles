@@ -27,6 +27,37 @@
                 inherit pkgs;
                 "bat-config".path = "bat/bat.conf";
               }).wrapper;
+
+            git =
+              (wrappers.wrapperModules.git.apply {
+                inherit pkgs;
+                settings = {
+                  user = {
+                    name = "TypicalUsername-ai";
+                    email = "mati.domalewski@gmail.com";
+                  };
+                  extraConfig = {
+                    init.defaultBranch = "main";
+                  };
+                  alias = {
+                    s = "status";
+                    c = "checkout";
+                    b = "branch";
+                  };
+                };
+              }).wrapper;
+
+            btop =
+              (wrappers.wrapperModules.btop.apply {
+                inherit pkgs;
+                "btop.conf".path = "btop/btop.conf";
+              }).wrapper;
+
+            eza =
+              (wrappers.wrapperModules.eza.apply {
+                inherit pkgs;
+                "theme.yml".path = import ./eza/theme.nix { theme = "tokyonight"; };
+              }).wrapper;
           };
         };
     };
