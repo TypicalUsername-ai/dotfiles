@@ -1,8 +1,11 @@
-{ self, ... }: {
-  flake.homeModules.git = {
-    programs.git = {
-      enable = true;
-      package = self.packages.git;
-    };
-  };
+{ inputs, ... }: {
+  flake.homeModules.git = inputs.flake-parts.lib.moduleWithSystem (
+    { config, ... }:
+    _: {
+      programs.git = {
+        enable = true;
+        package = config.packages.git;
+      };
+    }
+  );
 }
