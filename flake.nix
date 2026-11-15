@@ -8,6 +8,7 @@
     };
     wrappers.url = "github:lassulus/wrappers";
     home-manager.url = "github:nix-community/home-manager";
+    import-tree.url = "github:vic/import-tree";
   };
 
   outputs =
@@ -19,14 +20,9 @@
       {
         imports = [
           inputs.home-manager.flakeModules.home-manager
+          (inputs.import-tree ./homeModules)
           ./packages.nix
         ];
         systems = [ "x86_64-linux" ];
-
-        flake = {
-          homeModules = {
-          };
-        };
       };
-
 }
